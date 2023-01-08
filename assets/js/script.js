@@ -66,13 +66,17 @@ async function getResponse(forecastUrl, cityName, cityLat, cityLon) {
 		forecastUrl,
 		{
 			method: 'GET',
-			headers: {
-				'x-rapidapi-key': apiKey
-			}
+			// headers: {
+			//	'x-rapidapi-key': apiKey
+		//	}
 		}
-	).then((forecastData) => {
+	).then((response) => response.json()).then((forecastData) => {
     console.log(forecastData)
   })
+}
+
+function showWeather() {
+
 }
 
 // Fires getApi function when the search button is clicked
