@@ -5,6 +5,11 @@ var inputCityEl = document.getElementById('inputCity')
 var inputStateEl = document.getElementById('inputState')
 var inputCountryEl = document.getElementById('inputCountry')
 
+let cityName;
+let cityLat;
+let cityLon;
+
+
 // function calls the Open Weather API
 function getApi() {
   console.log('clicked!');
@@ -21,12 +26,16 @@ function getApi() {
   fetch(geocodeUrl)
   .then((response) => response.json())
   .then((data) => {
-    console.log(data)
-    let cityName = data.name;
-    let cityLat = data.lat;
-    let cityLon = data.lon;
+    console.log("Data:", data)
+    cityName = data[0].name;
+    cityLat = data[0].lat;
+    cityLon = data[0].lon;
+
+    let forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${cityLat}&lon=${cityLon}&appid=${apiKey}`
+    console.log(forecastUrl);
     
-    var forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${cityLat}&lon=${cityLon}&appid=${apiKey}`
+    
+
     //getResponse(forecastUrl, cityName, cityLat, cityLon)
     // fetch(forecastUrl)
     // .then((res) => res.json())
@@ -45,8 +54,10 @@ function getApi() {
     // cityInfo[name] = data.name;
     // cityInfo[state] =  data.state;
 
-   
+    getResponse(forecastUrl, cityName, cityLat, cityLon)
   });
+
+  
     
 }
 
