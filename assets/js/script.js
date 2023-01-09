@@ -4,13 +4,11 @@ let searchBtnEl = document.getElementById('searchBtn')
 let inputCityEl = document.getElementById('inputCity')
 let inputStateEl = document.getElementById('inputState')
 let inputCountryEl = document.getElementById('inputCountry')
+let searchHistory = document.getElementById('searchHistory')
 
 let cityName;
 let cityLat;
 let cityLon;
-
-
-
 
 
 
@@ -21,10 +19,13 @@ function getApi() {
   let stateChosen = inputStateEl.value
   let countryChosen = inputCountryEl.value
 
+localStorage.setItem("city", cityChosen);
+let city = localStorage.getItem("city")
+searchHistory.textContent = city;
+
+
   // let geocodeUrl gets the coordinates
   let geocodeUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${cityChosen},${stateChosen},${countryChosen}&appid=${apiKey}`
-
-  
   
   fetch(geocodeUrl) // Gets geocode coordinates
   .then((response) => response.json()) // Converts data to JSON
@@ -38,15 +39,8 @@ function getApi() {
 
      getResponse(forecastUrl) // Gets 5 day forecast data
   });
-
-  
     
 }
-
-
-
-
-
 
 // async function gets all forecast data
 async function getResponse(forecastUrl) { 
@@ -64,76 +58,47 @@ async function getResponse(forecastUrl) {
 
 }
 
-
-
-
-
-
-
-
 function get5Day(forecastData) {
-      for (let i = 0; i <= 4; i++) {
-        let oneDay = forecastData.list[i]
-        let date = oneDay.dt
-        let icon = oneDay.weather[0].icon
-        let temp = oneDay.main.temp
-        let humidity = oneDay.main.humidity
-        let windSpeed = oneDay.wind.speed
+      for (let i = 0; i <= 4; i++) { // Iterates through first five indices of weather data
+        let oneDay = forecastData.list[i] // Gets today's weather data
+        let date = oneDay.dt // Gets the date and time
+        let icon = oneDay.weather[0].icon // Gets the weather icon
+        let temp = oneDay.main.temp // Gets the temperature
+        let humidity = oneDay.main.humidity // Gets the humidity
+        let windSpeed = oneDay.wind.speed // Gets the wind speed
         
         show5DayWeather(i, date, icon, temp, humidity, windSpeed)
         showTodaysWeather(i, date, icon, temp, humidity, windSpeed)
       }
 }
 
-
-
-
-
-
-
-
 function show5DayWeather(i, date, icon, temp, humidity, windSpeed) {
 // Get weather data and append to page 
-//let dayCard = document.getElementById("day" + i)
-//dayCard.innerHTML = `Date: ${date}\nIcon: ${icon}\nTemp: ${temp}\nHumidity: ${humidity}\nWind: ${windSpeed}\n`
-
-let dateEl = document.createElement("p");
+let dateEl = document.createElement("p"); // Creates <p> element
 let iconEl = document.createElement("p");
 let tempEl = document.createElement("p");
 let humidEl = document.createElement("p");
 let windEl = document.createElement("p");
 
+dateEl.innerText = dayjs.unix(date).format('MMM D, YYYY'); // Formats date
+iconEl.innerText = icon; // Displays weather icon
+tempEl.innerText = "Temp: " + temp + " °F"; // Displays temperature
+humidEl.innerText = "Humidity: " + humidity + " %"; // Displays humidity
+windEl.innerText = "Wind: " + windSpeed + " MPH"; // Displays wind speed
 
-dateEl.innerText = dayjs.unix(date).format('MMM D, YYYY');;
-iconEl.innerText = icon;
-tempEl.innerText = temp + " °F";
-humidEl.innerText = humidity + " %";
-windEl.innerText = windSpeed + " MPH";
-
-
-document.getElementById("day" + i).appendChild(dateEl);
+document.getElementById("day" + i).appendChild(dateEl); // Appends elements to DOM
 document.getElementById("day" + i).appendChild(iconEl);
 document.getElementById("day" + i).appendChild(tempEl);
 document.getElementById("day" + i).appendChild(humidEl);
 document.getElementById("day" + i).appendChild(windEl);
 
-
-
 }
-
-
-
-
-
-
-
-
 
 function showTodaysWeather(i, date, icon, temp, humidity, windSpeed) {
 
 let unixFormat = dayjs.unix(date).format('MMM D, YYYY'); // Gets today's date
 
-let cityDisplay = document.getElementById("city")
+let cityDisplay = document.getElementById("city") // Selects elements by id
 let dateDisplay = document.getElementById("date")
 let iconDisplay = document.getElementById("icon")
 let tempDisplay = document.getElementById("temp")
@@ -143,16 +108,11 @@ let windDisplay = document.getElementById("wind")
 cityDisplay.textContent = (cityName) // Displays city
 dateDisplay.textContent = (unixFormat) // Displays today's date
 iconDisplay.textContent = (icon) // Displays weather icon
-tempDisplay.textContent = ("Temp: " + temp) // Displays max temperature
+tempDisplay.textContent = ("Temp: " + temp + " °F") // Displays max temperature
 humidityDisplay.textContent = ("Humidity: " + humidity + "%") // Displays humidity
-windDisplay.textContent = ("Wind Speed: " + windSpeed + " MPH") // Displays wind speed
-
-
-
+windDisplay.textContent = ("Wind: " + windSpeed + " MPH") // Displays wind speed
   
 }
-
-
 
 
 // Fires getApi function when the search button is clicked
