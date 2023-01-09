@@ -98,6 +98,8 @@ function show5DayWeather(i, date, icon, temp, humidity, windSpeed) {
 // Get weather data and append to page 
 let dayCard = document.getElementById("day" + i)
 dayCard.innerHTML = `Date: ${date}\nIcon: ${icon}\nTemp: ${temp}\nHumidity: ${humidity}\nWind: ${windSpeed}\n`
+
+
 console.log(dayCard);
 }
 
