@@ -79,6 +79,13 @@ async function getResponse(forecastUrl) {
 
 }
 
+
+
+
+
+
+
+
 function get5Day(forecastData) {
       for (let i = 0; i <= 4; i++) {
         let oneDay = forecastData.list[i]
@@ -87,32 +94,50 @@ function get5Day(forecastData) {
         let tempMax = oneDay.main.temp_max
         let humidity = oneDay.main.humidity
         let windSpeed = oneDay.wind.speed
+        // Good luck!
+        // Write HTML dynamically to append the data to the page
 
         
-
-        showWeather(i, date, icon, tempMax, humidity, windSpeed)
-      
+        show5DayWeather(i, date, icon, tempMax, humidity, windSpeed)
+        showTodaysWeather(i, date, icon, tempMax, humidity, windSpeed)
       }
 }
 
 
-function showWeather(i, date, icon, tempMax, humidity, windSpeed) {
+function show5DayWeather(i, date, icon, tempMax, humidity, windSpeed) {
 // Get weather data and append to page 
-let element = document.getElementById("day" + i) // if this doesn't work, make i a string
-element.innerHTML = `Date: ${date}\nIcon: ${icon}\nTemp: ${tempMax}\nHumidity: ${humidity}\nWind: ${windSpeed}\n`
-console.log(element);
+let dayCard = document.getElementById("day" + i) // if this doesn't work, make i a string
+dayCard.innerHTML = `Date: ${date}\nIcon: ${icon}\nTemp: ${tempMax}\nHumidity: ${humidity}\nWind: ${windSpeed}\n`
+console.log(dayCard);
 }
+
+function showTodaysWeather(i, date, icon, tempMax, humidity, windSpeed) {
+  // Get weather data and append to page
+
+let unixFormat = dayjs.unix(date).format('MMM D, YYYY');
+let iconUrl = "https://openweathermap.org/img/w" + icon + ".png";
+
+let cityDisplay = document.getElementById("city")
+let dateDisplay = document.getElementById("date")
+let iconDisplay = document.getElementById("icon")
+let tempDisplay = document.getElementById("temp")
+let humidityDisplay = document.getElementById("humidity")
+let windDisplay = document.getElementById("wind")
+
+cityDisplay.textContent = (cityName)
+dateDisplay.textContent = (unixFormat)
+iconDisplay.textContent = (icon)
+tempDisplay.textContent = ("Temp: " + tempMax)
+humidityDisplay.textContent = ("Humidity: " + humidity + "%")
+windDisplay.textContent = ("Wind Speed: " + windSpeed)
+
+
+
+  
+}
+
+
+
 
 // Fires getApi function when the search button is clicked
 searchBtnEl.addEventListener('click', getApi);
-
-// Write function that displays the current day weather in the top container on page
-// function todaysWeather()
-  // Create query selectors to grab ids from HTML and store in variables
-  // Append HTML and CSS to page for current day
-
-  
-// Write function that displays the 5 day forecast to cards on page
-// function fiveDayForecast()
-  // Create query selectors to grab ids from HTML and store in variables
-  // Append HTML and CSS to page for all 5 weather cards
