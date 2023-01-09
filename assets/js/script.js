@@ -48,8 +48,8 @@ function getApi() {
 
 
 
-
-async function getResponse(forecastUrl) { // async function gets all forecast data
+// async function gets all forecast data
+async function getResponse(forecastUrl) { 
 	const response = await fetch(
 		forecastUrl,
 		{
@@ -79,8 +79,6 @@ function get5Day(forecastData) {
         let temp = oneDay.main.temp
         let humidity = oneDay.main.humidity
         let windSpeed = oneDay.wind.speed
-        // Write HTML dynamically to append the data to the page
-
         
         show5DayWeather(i, date, icon, temp, humidity, windSpeed)
         showTodaysWeather(i, date, icon, temp, humidity, windSpeed)
@@ -96,11 +94,31 @@ function get5Day(forecastData) {
 
 function show5DayWeather(i, date, icon, temp, humidity, windSpeed) {
 // Get weather data and append to page 
-let dayCard = document.getElementById("day" + i)
-dayCard.innerHTML = `Date: ${date}\nIcon: ${icon}\nTemp: ${temp}\nHumidity: ${humidity}\nWind: ${windSpeed}\n`
+//let dayCard = document.getElementById("day" + i)
+//dayCard.innerHTML = `Date: ${date}\nIcon: ${icon}\nTemp: ${temp}\nHumidity: ${humidity}\nWind: ${windSpeed}\n`
+
+let dateEl = document.createElement("p");
+let iconEl = document.createElement("p");
+let tempEl = document.createElement("p");
+let humidEl = document.createElement("p");
+let windEl = document.createElement("p");
 
 
-console.log(dayCard);
+dateEl.innerText = dayjs.unix(date).format('MMM D, YYYY');;
+iconEl.innerText = icon;
+tempEl.innerText = temp + " °F";
+humidEl.innerText = humidity + " %";
+windEl.innerText = windSpeed + " MPH";
+
+
+document.getElementById("day" + i).appendChild(dateEl);
+document.getElementById("day" + i).appendChild(iconEl);
+document.getElementById("day" + i).appendChild(tempEl);
+document.getElementById("day" + i).appendChild(humidEl);
+document.getElementById("day" + i).appendChild(windEl);
+
+
+
 }
 
 
@@ -112,7 +130,6 @@ console.log(dayCard);
 
 
 function showTodaysWeather(i, date, icon, temp, humidity, windSpeed) {
-  // Get weather data and append to page
 
 let unixFormat = dayjs.unix(date).format('MMM D, YYYY'); // Gets today's date
 
@@ -128,7 +145,7 @@ dateDisplay.textContent = (unixFormat) // Displays today's date
 iconDisplay.textContent = (icon) // Displays weather icon
 tempDisplay.textContent = ("Temp: " + temp) // Displays max temperature
 humidityDisplay.textContent = ("Humidity: " + humidity + "%") // Displays humidity
-windDisplay.textContent = ("Wind Speed: " + windSpeed) // Displays wind speed
+windDisplay.textContent = ("Wind Speed: " + windSpeed + " MPH") // Displays wind speed
 
 
 
