@@ -1,9 +1,9 @@
 // Global variables
-var apiKey = '6a18942032d599aed45ad2d25a7e474d'
-var searchBtnEl = document.getElementById('searchBtn')
-var inputCityEl = document.getElementById('inputCity')
-var inputStateEl = document.getElementById('inputState')
-var inputCountryEl = document.getElementById('inputCountry')
+let apiKey = '6a18942032d599aed45ad2d25a7e474d'
+let searchBtnEl = document.getElementById('searchBtn')
+let inputCityEl = document.getElementById('inputCity')
+let inputStateEl = document.getElementById('inputState')
+let inputCountryEl = document.getElementById('inputCountry')
 
 let cityName;
 let cityLat;
@@ -21,22 +21,22 @@ function getApi() {
   let stateChosen = inputStateEl.value
   let countryChosen = inputCountryEl.value
 
-  // var geocodeUrl gets the coordinates
-  var geocodeUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${cityChosen},${stateChosen},${countryChosen}&appid=${apiKey}`
+  // let geocodeUrl gets the coordinates
+  let geocodeUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${cityChosen},${stateChosen},${countryChosen}&appid=${apiKey}`
 
   
   
-  fetch(geocodeUrl)
-  .then((response) => response.json())
+  fetch(geocodeUrl) // Gets geocode coordinates
+  .then((response) => response.json()) // Converts data to JSON
   .then((data) => {
-    cityName = data[0].name;
-    cityLat = data[0].lat;
-    cityLon = data[0].lon;
+    cityName = data[0].name; // Gets city name
+    cityLat = data[0].lat; // Gets latitude
+    cityLon = data[0].lon; // Gets longitude
 
     // let forecastUrl gets the 5 day / 3 hour forecast data
     let forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${cityLat}&lon=${cityLon}&units=imperial&appid=${apiKey}`
 
-     getResponse(forecastUrl)
+     getResponse(forecastUrl) // Gets 5 day forecast data
   });
 
   
@@ -49,7 +49,7 @@ function getApi() {
 
 
 
-async function getResponse(forecastUrl) {
+async function getResponse(forecastUrl) { // async function gets all forecast data
 	const response = await fetch(
 		forecastUrl,
 		{
