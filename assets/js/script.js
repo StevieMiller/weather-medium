@@ -19,11 +19,6 @@ function getApi() {
   let stateChosen = inputStateEl.value
   let countryChosen = inputCountryEl.value
 
-localStorage.setItem("city", cityChosen);
-let city = localStorage.getItem("city")
-searchHistory.textContent = city;
-
-
   // let geocodeUrl gets the coordinates
   let geocodeUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${cityChosen},${stateChosen},${countryChosen}&appid=${apiKey}`
   
@@ -40,6 +35,8 @@ searchHistory.textContent = city;
      getResponse(forecastUrl) // Gets 5 day forecast data
   });
     
+renderSearch()
+
 }
 
 // async function gets all forecast data
@@ -58,6 +55,18 @@ async function getResponse(forecastUrl) {
 
 }
 
+function renderSearch() {
+
+  let cityChosen = inputCityEl.value
+
+  localStorage.setItem("city", cityChosen);
+  let city = localStorage.getItem("city")
+  searchHistory.textContent = city;
+  
+  console.log(localStorage.getItem("city"));
+
+  }
+
 function get5Day(forecastData) {
       for (let i = 0; i <= 4; i++) { // Iterates through first five indices of weather data
         let oneDay = forecastData.list[i] // Gets today's weather data
@@ -75,18 +84,21 @@ function get5Day(forecastData) {
 function show5DayWeather(i, date, icon, temp, humidity, windSpeed) {
 // Get weather data and append to page 
 let dateEl = document.createElement("p"); // Creates <p> element
-let iconEl = document.createElement("p");
+let iconEl = document.createElement("img");
 let tempEl = document.createElement("p");
 let humidEl = document.createElement("p");
 let windEl = document.createElement("p");
+let iconUrl = "http://openweathermap.org/img/w/" + icon + ".png"
 
+iconEl.setAttribute("src", iconUrl);
 dateEl.innerText = dayjs.unix(date).format('MMM D, YYYY'); // Formats date
-iconEl.innerText = icon; // Displays weather icon
+iconEl.innerText = iconUrl; // Displays weather icon
 tempEl.innerText = "Temp: " + temp + " °F"; // Displays temperature
 humidEl.innerText = "Humidity: " + humidity + " %"; // Displays humidity
 windEl.innerText = "Wind: " + windSpeed + " MPH"; // Displays wind speed
 
 document.getElementById("day" + i).appendChild(dateEl); // Appends elements to DOM
+document.getElementById("5day").appendChild(iconEl);
 document.getElementById("day" + i).appendChild(iconEl);
 document.getElementById("day" + i).appendChild(tempEl);
 document.getElementById("day" + i).appendChild(humidEl);

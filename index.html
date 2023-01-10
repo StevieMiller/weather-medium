@@ -29,13 +29,16 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-lg-2">
-    <h2>Search by city:</h2>
+    <h2 class="search">Search by city</h2>
     <div class="input-group flex-column">
-      <input id="inputCity" type="text" placeholder="City">
-      <input id="inputState" type="text" placeholder="State">
-      <input id="inputCountry" type="text" placeholder="Country">
+      <input id="inputCity" class="form-control-sm" type="text" placeholder="City">
+      <input id="inputState" class="form-control-sm" type="text" placeholder="State">
+      <input id="inputCountry" class="form-control-sm" type="text" placeholder="Country">
       <button id="searchBtn" class="btn btn-outline-secondary bg-primary text-white" type="button">Search</button>
+    <div>
+      <h2 class="search">Search History</h2>
       <div id="searchHistory"></div>
+    </div>
     </div>
     </div>
     
@@ -60,12 +63,12 @@
       </div>
 
       <!-- Populate forecast cards -->
-      <div class="row">
-        <div id="day0" class="col-md-2"></div>
-        <div id="day1" class="col-md-2"></div>
-        <div id="day2" class="col-md-2"></div>
-        <div id="day3" class="col-md-2"></div>
-        <div id="day4" class="col-md-2"></div>
+      <div class="row mb-3" id="5day">
+        <div id="day0" class="col-md-2 card-body"></div>
+        <div id="day1" class="col-md-2 card-body"></div>
+        <div id="day2" class="col-md-2 card-body"></div>
+        <div id="day3" class="col-md-2 card-body"></div>
+        <div id="day4" class="col-md-2 card-body"></div>
       </div>
     </div>
   </div>
