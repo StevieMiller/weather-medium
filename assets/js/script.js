@@ -34,7 +34,8 @@ function getApi() {
 
      getResponse(forecastUrl) // Gets 5 day forecast data
   });
-    
+
+initSearchHistory()  
 renderSearch()
 
 }
@@ -55,6 +56,17 @@ async function getResponse(forecastUrl) {
 
 }
 
+function initSearchHistory() {
+  let storedHistory = localStorage.getItem("city");
+
+  console.log(storedHistory);
+
+  if (storedHistory) {
+    const obj = JSON.parse(storedHistory);
+
+  }
+}
+
 function renderSearch() {
 
   let cityChosen = inputCityEl.value
@@ -63,7 +75,7 @@ function renderSearch() {
   let city = localStorage.getItem("city")
   searchHistory.textContent = city;
   
-  console.log(localStorage.getItem("city"));
+  // console.log(localStorage.getItem("city"));
 
   }
 
