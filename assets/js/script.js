@@ -10,21 +10,13 @@ let cityName;
 let cityLat;
 let cityLon;
 
-function initSearchHistory() {
-
-  let cityChosen = inputCityEl.value
-
-  localStorage.setItem("city", cityChosen);
-  let city = localStorage.getItem("city")
-  searchHistory.textContent = city;
-
-  }
-
+let city = localStorage.getItem("city") // Gets city saved in local storage
+  searchHistory.textContent = city; // Renders city to page under search history
 
 // function calls the Open Weather API
 function getApi() {
 
-  let cityChosen = inputCityEl.value
+  let cityChosen = inputCityEl.value // Gets input values
   let stateChosen = inputStateEl.value
   let countryChosen = inputCountryEl.value
 
@@ -64,18 +56,6 @@ async function getResponse(forecastUrl) {
   })
 
 }
-
-
-
-function renderSearch() {
-
-  let cityChosen = inputCityEl.value
-
-  localStorage.setItem("city", cityChosen);
-  let city = localStorage.getItem("city")
-  searchHistory.textContent = city;
-  
-  }
 
 function get5Day(forecastData) {
       for (let i = 0; i <= 4; i++) { // Iterates through first five indices of weather data
@@ -135,7 +115,6 @@ humidityDisplay.textContent = ("Humidity: " + humidity + "%") // Displays humidi
 windDisplay.textContent = ("Wind: " + windSpeed + " MPH") // Displays wind speed
   
 }
-
 
 // Fires getApi function when the search button is clicked
 searchBtnEl.addEventListener('click', getApi);
