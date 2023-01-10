@@ -10,6 +10,15 @@ let cityName;
 let cityLat;
 let cityLon;
 
+function initSearchHistory() {
+
+  let cityChosen = inputCityEl.value
+
+  localStorage.setItem("city", cityChosen);
+  let city = localStorage.getItem("city")
+  searchHistory.textContent = city;
+
+  }
 
 
 // function calls the Open Weather API
@@ -56,16 +65,7 @@ async function getResponse(forecastUrl) {
 
 }
 
-function initSearchHistory() {
-  let storedHistory = localStorage.getItem("city");
 
-  console.log(storedHistory);
-
-  if (storedHistory) {
-    const obj = JSON.parse(storedHistory);
-
-  }
-}
 
 function renderSearch() {
 
@@ -75,8 +75,6 @@ function renderSearch() {
   let city = localStorage.getItem("city")
   searchHistory.textContent = city;
   
-  // console.log(localStorage.getItem("city"));
-
   }
 
 function get5Day(forecastData) {
