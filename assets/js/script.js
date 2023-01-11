@@ -12,6 +12,7 @@ let cityLon;
 
 let city = localStorage.getItem("city") // Gets city saved in local storage
   searchHistory.textContent = city; // Renders city to page under search history
+  console.log(city);
 
 // function calls the Open Weather API
 function getApi() {
@@ -36,7 +37,6 @@ function getApi() {
      getResponse(forecastUrl) // Gets 5 day forecast data
   });
 
-initSearchHistory()  
 renderSearch()
 
 }
