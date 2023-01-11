@@ -22,7 +22,7 @@ function getApi() {
   let countryChosen = inputCountryEl.value
 
   // let geocodeUrl gets the coordinates
-  let geocodeUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${cityChosen},${stateChosen},${countryChosen}&appid=${apiKey}`
+  let geocodeUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${cityChosen},${stateChosen},${countryChosen}&appid=${apiKey}`
   
   fetch(geocodeUrl) // Gets geocode coordinates
   .then((response) => response.json()) // Converts data to JSON
