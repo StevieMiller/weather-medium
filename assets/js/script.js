@@ -37,7 +37,6 @@ function getApi() {
      getResponse(forecastUrl) // Gets 5 day forecast data
   });
 
-renderSearch()
 
 }
 
